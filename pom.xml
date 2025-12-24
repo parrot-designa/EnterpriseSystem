@@ -26,8 +26,6 @@
     </properties>
 
     <modules>
-        <module>hello-module</module>
-        <module>app</module>
         <module>babysecure-api</module>
         <module>babysecure</module>
     </modules>
