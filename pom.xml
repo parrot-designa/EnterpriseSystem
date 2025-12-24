@@ -28,6 +28,8 @@
     <modules>
         <module>babysecure-api</module>
         <module>babysecure</module>
+        <module>babydependencies</module>
+        <module>babystart</module>
     </modules>
 
     <dependencyManagement>
