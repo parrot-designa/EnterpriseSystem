@@ -11,9 +11,9 @@ import org.springframework.context.annotation.FilterType;
  */
 @SpringBootApplication
 @ComponentScan(
-    basePackages = {
-        "com.enterprisesystem"
-    }
+        basePackages = {
+                "com.enterprisesystem"
+        }
 )
 public class BabyStartApplication {
 

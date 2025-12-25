@@ -1,0 +1,22 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/wjb
+    username: root
+    password: wjb1793.
+  sql:
+    init:
+      mode: ALWAYS
+      schema-locations:
+        - 'classpath*:schema.sql'
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.enterprisesystem.babymain.dto
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+logging:
+  level:
+    com.enterprisesystem.babymain.mapper: debug
