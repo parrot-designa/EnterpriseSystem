@@ -9,7 +9,7 @@
     <version>1.0.0</version>
     <packaging>pom</packaging>
 
-    <name>Enterprise System - Parent</name>
+    <name>Enterprise System - root</name>
     <description>Enterprise System Multi-Module Project</description>
 
     <parent>
@@ -23,18 +23,32 @@
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <babyproject.version>1.0.0</babyproject.version>
     </properties>
 
     <modules>
         <module>babysecure-api</module>
         <module>babysecure</module>
-        <module>babydependencies</module>
         <module>babystart</module>
     </modules>
 
     <dependencyManagement>
         <dependencies>
-            <!-- Spring Boot dependencies are managed by spring-boot-starter-parent -->
+            <dependency>
+                <groupId>com.enterprisesystem</groupId>
+                <artifactId>babysecure-api</artifactId>
+                <version>${babyproject.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.enterprisesystem</groupId>
+                <artifactId>babysecure</artifactId>
+                <version>${babyproject.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.enterprisesystem</groupId>
+                <artifactId>babystart</artifactId>
+                <version>${babyproject.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

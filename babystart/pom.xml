@@ -7,29 +7,14 @@
         <version>1.0.0</version>
     </parent>
     <artifactId>babystart</artifactId>
-    <name>BabyStart - Main Application</name>
+    <name>babystart</name>
     <description>Main Application Starter Module</description>
     <packaging>jar</packaging>
 
     <dependencies>
-        <!-- BabySecure API dependencies -->
-        <dependency>
-            <groupId>com.enterprisesystem</groupId>
-            <artifactId>babysecure-api</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-
-        <!-- BabySecure implementation -->
         <dependency>
             <groupId>com.enterprisesystem</groupId>
             <artifactId>babysecure</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-
-        <!-- Spring Boot Starter Web -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
         <!-- Spring Boot Starter Test -->

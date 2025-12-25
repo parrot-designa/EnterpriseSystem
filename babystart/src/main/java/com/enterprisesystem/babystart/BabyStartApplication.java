@@ -12,8 +12,7 @@ import org.springframework.context.annotation.FilterType;
 @SpringBootApplication
 @ComponentScan(
     basePackages = {
-        "com.enterprisesystem.babystart",
-        "com.enterprisesystem.babysecure"
+        "com.enterprisesystem"
     }
 )
 public class BabyStartApplication {
