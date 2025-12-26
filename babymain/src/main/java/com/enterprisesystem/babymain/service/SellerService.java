@@ -1,6 +1,6 @@
 package com.enterprisesystem.babymain.service;
 
-import com.enterprisesystem.babymain.dto.SellerDto;
+import com.enterprisesystem.babymain.model.dto.SellerDto;
 
 public interface SellerService {
     SellerDto addSeller(SellerDto sellerDto);

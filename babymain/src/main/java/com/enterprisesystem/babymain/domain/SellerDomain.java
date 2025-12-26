@@ -4,7 +4,6 @@ public class SellerDomain {
     private Integer id;
     private String code;
     private String name;
-    private sellerDomain sellerDomain;
 
     public Integer getId() {
         return id;

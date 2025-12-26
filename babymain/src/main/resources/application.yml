@@ -11,11 +11,9 @@ spring:
         - 'classpath*:schema.sql'
 
 mybatis:
-  mapper-locations: classpath:mapper/*.xml
-  type-aliases-package: com.enterprisesystem.babymain.dto
+  type-aliases-package: com.enterprisesystem.babymain.entity
   configuration:
     map-underscore-to-camel-case: true
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 logging:
   level:

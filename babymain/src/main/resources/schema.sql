@@ -8,5 +8,5 @@ CREATE TABLE IF NOT EXISTS seller (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='商家表';
 
 -- 插入初始数据
-INSERT INTO seller (code, name) VALUES ('SELLER001', '测试商家1');
-INSERT INTO seller (code, name) VALUES ('SELLER002', '测试商家2');
+--INSERT INTO seller (code, name) VALUES ('SELLER001', '测试商家1');
+--INSERT INTO seller (code, name) VALUES ('SELLER002', '测试商家2');

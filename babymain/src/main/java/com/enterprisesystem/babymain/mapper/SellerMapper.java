@@ -1,6 +1,6 @@
 package com.enterprisesystem.babymain.mapper;
 
-import com.enterprisesystem.babymain.dto.SellerDto;
+import com.enterprisesystem.babymain.model.dto.SellerDto;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;

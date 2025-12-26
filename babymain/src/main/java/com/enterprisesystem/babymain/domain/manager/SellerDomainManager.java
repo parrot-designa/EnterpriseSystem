@@ -18,7 +18,7 @@ public class SellerDomainManager {
     }
 
     public SellerDomain addSeller(SellerDomain sellerDomain){
-        this.sellerMapper.insert(sellerDomain.get)
+//        this.sellerMapper.insert(sellerDomain.get)
         return sellerDomain;
     }
 }
