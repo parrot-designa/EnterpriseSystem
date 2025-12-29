@@ -1,6 +1,7 @@
 package com.enterprisesystem.babymain.mapper;
 
 import com.enterprisesystem.babymain.model.dto.SellerDto;
+import com.enterprisesystem.babymain.model.dto.SellerPageRequest;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -55,4 +56,38 @@ public interface SellerMapper {
             "</foreach>" +
             "</script>")
     int batchInsert(@Param("list") List<SellerDto> sellerDtos);
+
+    /**
+     * 分页查询商家
+     */
+    @Select("<script>" +
+            "SELECT * FROM seller " +
+            "<where>" +
+            "<if test='code != null and code != \"\"'>" +
+            "AND code LIKE CONCAT('%', #{code}, '%') " +
+            "</if>" +
+            "<if test='name != null and name != \"\"'>" +
+            "AND name LIKE CONCAT('%', #{name}, '%') " +
+            "</if>" +
+            "</where>" +
+            "ORDER BY id DESC " +
+            "LIMIT #{offset}, #{pageSize}" +
+            "</script>")
+    List<SellerDto> selectByPage(SellerPageRequest request);
+
+    /**
+     * 统计商家总数（用于分页）
+     */
+    @Select("<script>" +
+            "SELECT COUNT(*) FROM seller " +
+            "<where>" +
+            "<if test='code != null and code != \"\"'>" +
+            "AND code LIKE CONCAT('%', #{code}, '%') " +
+            "</if>" +
+            "<if test='name != null and name != \"\"'>" +
+            "AND name LIKE CONCAT('%', #{name}, '%') " +
+            "</if>" +
+            "</where>" +
+            "</script>")
+    Long countByPage(SellerPageRequest request);
 }

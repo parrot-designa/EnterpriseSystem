@@ -2,10 +2,10 @@ package com.enterprisesystem.babymain.controller;
 
 import com.enterprisesystem.babycommon.constant.ApiConstants;
 import com.enterprisesystem.babymain.model.dto.SellerDto;
+import com.enterprisesystem.babymain.model.dto.SellerPageRequest;
+import com.enterprisesystem.babymain.model.response.PageResult;
 import com.enterprisesystem.babymain.service.SellerService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -23,5 +23,13 @@ public class SellerController {
         dto.setName(sellerDto.getName());
         sellerService.addSeller(dto);
         return dto;
+    }
+
+    /**
+     * 分页查询商家
+     */
+    @GetMapping
+    public PageResult<SellerDto> querySeller(SellerPageRequest request) {
+        return sellerService.querySeller(request);
     }
 }
