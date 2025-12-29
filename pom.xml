@@ -26,6 +26,7 @@
         <babyproject.version>1.0.0</babyproject.version>
         <spring-boot.version>2.7.18</spring-boot.version>
         <mysql.version>8.0.26</mysql.version>
+        <spring-cloud-alibaba.version>2021.0.5.0</spring-cloud-alibaba.version>
     </properties>
 
     <modules>
@@ -38,6 +39,15 @@
 
     <dependencyManagement>
         <dependencies>
+            <!-- Spring Cloud Alibaba BOM -->
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${spring-cloud-alibaba.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
             <!-- Spring Boot Starter Web -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
@@ -57,6 +67,20 @@
                 <artifactId>mysql-connector-java</artifactId>
                 <version>${mysql.version}</version>
                 <scope>runtime</scope>
+            </dependency>
+
+            <!-- Nacos Discovery -->
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+                <version>${spring-cloud-alibaba.version}</version>
+            </dependency>
+
+            <!-- Nacos Config -->
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
+                <version>${spring-cloud-alibaba.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
