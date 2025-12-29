@@ -3,8 +3,8 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/wjb
     username: root
-    # password: wjb1793.
-    password: 19970920
+    password: wjb1793.
+    # password: 19970920
   sql:
     init:
       mode: ALWAYS

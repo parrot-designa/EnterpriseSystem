@@ -1,5 +1,6 @@
 package com.enterprisesystem.babymain.controller;
 
+import com.enterprisesystem.babycommon.annotation.ApiExceptionHandler;
 import com.enterprisesystem.babycommon.constant.ApiConstants;
 import com.enterprisesystem.babymain.model.dto.SellerDto;
 import com.enterprisesystem.babymain.model.dto.SellerPageRequest;
@@ -29,6 +30,7 @@ public class SellerController {
      * 分页查询商家
      */
     @GetMapping
+    @ApiExceptionHandler(apiId = 2)
     public PageResult<SellerDto> querySeller(SellerPageRequest request) {
         return sellerService.querySeller(request);
     }
