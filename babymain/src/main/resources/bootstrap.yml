@@ -1,0 +1,19 @@
+spring:
+  cloud:
+    nacos:
+      config:
+        server-addr: localhost:8848  # Nacos 服务器地址
+        namespace: dev                # 与步骤2创建的命名空间ID一致
+        name: babysecure
+        file-extension: yml
+        group: DEFAULT_GROUP
+      discovery:
+        server-addr: localhost:8848
+        namespace: dev
+  application:
+    name: babysecure
+
+  profiles:
+    active: dev
+
+

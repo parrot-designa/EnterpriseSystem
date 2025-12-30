@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfig.EnableAutoConfiguration=\
+  com.enterprisesystem.babycommon.config.BatchCommonAutoConfiguration
