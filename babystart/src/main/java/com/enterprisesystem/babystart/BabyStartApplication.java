@@ -17,7 +17,10 @@ import org.springframework.context.annotation.FilterType;
                 "com.enterprisesystem"
         }
 )
-@MapperScan("com.enterprisesystem.babymain.mapper")
+@MapperScan({
+        "com.enterprisesystem.babymain.mapper",
+        "com.enterprisesystem.babysecure.mapper"
+})
 public class BabyStartApplication {
 
     public static void main(String[] args) {

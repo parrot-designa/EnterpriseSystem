@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS baby_license (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='系统授权表';
 
 -- 插入卖家数据
-INSERT INTO seller (code, name) VALUES ('SELLER001', '测试商家1');
+--INSERT INTO seller (code, name) VALUES ('SELLER001', '测试商家1');
 --INSERT INTO seller (code, name) VALUES ('SELLER002', '测试商家2');
 
 -- 插入系统授权数据

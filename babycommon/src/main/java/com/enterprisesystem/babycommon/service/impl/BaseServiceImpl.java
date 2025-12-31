@@ -6,6 +6,7 @@ import com.enterprisesystem.babycommon.model.PageResult;
 import com.enterprisesystem.babycommon.service.BaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -79,7 +80,7 @@ public abstract class BaseServiceImpl<M extends BaseMapper<T, ID>, T, ID> implem
     @Override
     public List<T> getByIds(List<ID> ids) {
         if (ids == null || ids.isEmpty()) {
-            return List.of();
+            return Collections.emptyList();
         }
         return mapper.selectByIds(ids);
     }
