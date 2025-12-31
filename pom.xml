@@ -28,6 +28,7 @@
         <mysql.version>8.0.26</mysql.version>
         <spring-cloud-alibaba.version>2021.0.5.0</spring-cloud-alibaba.version>
         <spring-cloud.version>2021.0.5</spring-cloud.version>
+        <spring-boot-starter-amqp.version>2.4.6</spring-boot-starter-amqp.version>
     </properties>
 
     <modules>
@@ -94,10 +95,18 @@
                 <version>${spring-cloud-alibaba.version}</version>
             </dependency>
 
+            <!-- CommonLangs -->
             <dependency>
                 <groupId>org.apache.commons</groupId>
                 <artifactId>commons-lang3</artifactId>
                 <version>3.19.0</version>
+            </dependency>
+
+            <!-- RabbitMQ -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-amqp</artifactId>
+                <version>${spring-boot-starter-amqp.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
