@@ -32,7 +32,6 @@
     </properties>
 
     <modules>
-        <module>babysecure-api</module>
         <module>babysecure</module>
         <module>babystart</module>
         <module>babycommon</module>
@@ -107,6 +106,13 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-starter-amqp</artifactId>
                 <version>${spring-boot-starter-amqp.version}</version>
+            </dependency>
+
+            <!-- Spring Boot AOP Starter -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-aop</artifactId>
+                <version>${spring-boot.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

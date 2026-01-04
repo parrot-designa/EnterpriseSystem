@@ -15,11 +15,6 @@
     <description>User Management Implementation Module</description>
 
     <dependencies>
-        <dependency>
-            <groupId>com.enterprisesystem</groupId>
-            <artifactId>babysecure-api</artifactId>
-            <version>1.0.0</version>
-        </dependency>
 
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>

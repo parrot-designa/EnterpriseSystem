@@ -1,4 +1,4 @@
-package com.enterprisesystem.babysecure.constants;
+package com.enterprisesystem.babysecure.constant;
 
 public class SecureApiConstants {
     public static final String API_V1 = "/api/v1";

@@ -4,6 +4,7 @@ import com.enterprisesystem.babysecure.mapper.DepartmentMapper;
 import com.enterprisesystem.babysecure.model.dto.DepartmentDto;
 import com.enterprisesystem.babysecure.model.entity.DepartmentEntity;
 import com.enterprisesystem.babysecure.service.DepartmentService;
+import com.enterprisesystem.babycommon.exception.SystemRuntimeException;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -99,14 +100,14 @@ public class DepartmentServiceImpl implements DepartmentService {
         // 1. 校验部门编码是否已存在
         DepartmentEntity existEntity = departmentMapper.selectByCode(departmentDto.getCode());
         if (existEntity != null) {
-            throw new RuntimeException("部门编码【" + departmentDto.getCode() + "】已存在");
+            throw new SystemRuntimeException(1,"部门编码【" + departmentDto.getCode() + "】已存在");
         }
 
         // 2. 如果有父部门，校验父部门是否存在
         if (departmentDto.getParentId() != null) {
             DepartmentEntity parentEntity = departmentMapper.selectById(departmentDto.getParentId());
             if (parentEntity == null) {
-                throw new RuntimeException("父部门不存在");
+                throw new SystemRuntimeException(2,"父部门不存在");
             }
         }
 
@@ -129,7 +130,7 @@ public class DepartmentServiceImpl implements DepartmentService {
             // insert 后，entity.getId() 会自动获得数据库生成的 ID
             return entityToDto(entity);
         } else {
-            throw new RuntimeException("添加部门失败");
+            throw new SystemRuntimeException(3,"添加部门失败");
         }
     }
 
@@ -140,18 +141,18 @@ public class DepartmentServiceImpl implements DepartmentService {
     public DepartmentDto updateDepartment(DepartmentDto departmentDto) {
         // 1. 校验部门是否存在
         if (departmentDto.getId() == null) {
-            throw new RuntimeException("部门ID不能为空");
+            throw new SystemRuntimeException(1,"部门ID不能为空");
         }
         DepartmentEntity existEntity = departmentMapper.selectById(departmentDto.getId());
         if (existEntity == null) {
-            throw new RuntimeException("部门不存在");
+            throw new SystemRuntimeException(1,"部门不存在");
         }
 
         // 2. 如果修改了编码，校验新编码是否重复
         if (!existEntity.getCode().equals(departmentDto.getCode())) {
             DepartmentEntity codeEntity = departmentMapper.selectByCode(departmentDto.getCode());
             if (codeEntity != null) {
-                throw new RuntimeException("部门编码【" + departmentDto.getCode() + "】已存在");
+                throw new SystemRuntimeException(1,"部门编码【" + departmentDto.getCode() + "】已存在");
             }
         }
 
@@ -165,7 +166,7 @@ public class DepartmentServiceImpl implements DepartmentService {
         if (result > 0) {
             return entityToDto(entity);
         } else {
-            throw new RuntimeException("更新部门失败");
+            throw new SystemRuntimeException(1,"更新部门失败");
         }
     }
 
@@ -176,17 +177,17 @@ public class DepartmentServiceImpl implements DepartmentService {
     public boolean deleteDepartment(Integer id) {
         // 1. 校验部门是否存在
         if (id == null) {
-            throw new RuntimeException("部门ID不能为空");
+            throw new SystemRuntimeException(1,"部门ID不能为空");
         }
         DepartmentEntity existEntity = departmentMapper.selectById(id);
         if (existEntity == null) {
-            throw new RuntimeException("部门不存在");
+            throw new SystemRuntimeException(1,"部门不存在");
         }
 
         // 2. 检查是否有子部门
         Long childCount = departmentMapper.countByParentId(id);
         if (childCount > 0) {
-            throw new RuntimeException("该部门下有子部门，不能删除");
+            throw new SystemRuntimeException(1,"该部门下有子部门，不能删除");
         }
 
         // 3. 删除数据库记录
