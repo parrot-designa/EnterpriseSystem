@@ -1,2 +1,3 @@
 org.springframework.boot.autoconfig.EnableAutoConfiguration=\
-  com.enterprisesystem.babycommon.config.BatchCommonAutoConfiguration
+  com.enterprisesystem.babycommon.config.BatchCommonAutoConfiguration,\
+  com.enterprisesystem.babycommon.config.BatchRedisAutoConfiguration

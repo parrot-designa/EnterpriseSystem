@@ -1,5 +1,9 @@
-package com.enterprisesystem.babycommon.utils;
+package com.enterprisesystem.babycommon.helpers;
 
+import com.enterprisesystem.babycommon.utils.CommonHexUtil;
+
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -141,5 +145,81 @@ public class SHAHelper {
         }
 
         return value;
+    }
+
+
+    /**
+     * 将字符串使用 SHA-256 算法加密并转换为十六进制字符串
+     *
+     * 【功能说明】
+     * 对输入字符串进行 SHA-256 哈希计算，并将结果编码为十六进制字符串
+     * 这是一个不可逆的单向加密函数，常用于密码加密、数据完整性校验等场景
+     *
+     * 【SHA-256 算法特点】
+     * - 输出固定长度：无论输入多长，始终输出 64 个十六进制字符（256 位）
+     * - 单向性：无法从哈希值反推出原始字符串（防暴力破解还需加盐）
+     * - 雪崩效应：输入微小变化（如改变 1 个字符）会导致输出完全不同
+     * - 确定性：相同输入始终产生相同输出
+     * - 抗碰撞性：很难找到两个不同输入产生相同输出
+     *
+     * 【处理流程】
+     * 1. 获取 SHA-256 MessageDigest 实例
+     * 2. 将输入字符串转换为 UTF-8 编码的字节数组
+     * 3. 对字节数组进行 SHA-256 哈希计算（输出 32 字节）
+     * 4. 将 32 字节哈希值转换为 64 个十六进制字符
+     *
+     * 【使用场景】
+     * - 用户密码加密存储（建议加盐 + 多次哈希）
+     * - 数据完整性校验（文件哈希、API 签名）
+     * - 数字签名
+     * - 生成唯一标识符
+     *
+     * 【安全建议】
+     * - 对于密码存储，建议使用 BCrypt、Argon2 或 PBKDF2 等专门算法
+     * - 或者使用 SHA-256 + 盐值 + 多次迭代（如 10000 次）
+     * - 不要直接使用 SHA-256 存储敏感密码（容易被彩虹表攻击）
+     *
+     * 【示例】
+     * converByteToHexString("hello")       -> "2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824"
+     * converByteToHexString("hello!")      -> "334d016f755cd6dc58c53a86e183882f8ec14f52fb05345887c8a5edd42c87b7"
+     * converByteToHexString("")            -> "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+     * converByteToHexString("password123") -> "ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f"
+     *
+     * @param str 要加密的原始字符串（任意长度，包括空字符串）
+     * @return 64 个字符的十六进制哈希字符串（小写），异常时返回空字符串 ""
+     */
+    public static String convertByteToHexString(String str){
+        try{
+            // ==================== 步骤 1：获取 SHA-256 哈希算法实例 ====================
+            // MessageDigest 是 Java 提供的消息摘要算法类
+            // "SHA-256" 指定使用 SHA-256 算法（输出 256 位 = 32 字节）
+            MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
+
+            // ==================== 步骤 2：将字符串转换为字节数组 ====================
+            // StandardCharsets.UTF_8 确保跨平台一致性（Windows、Linux、Mac 统一编码）
+            // 例如："hello" -> [104, 101, 108, 108, 111]
+            byte[] inputBytes = str.getBytes(StandardCharsets.UTF_8);
+
+            // ==================== 步骤 3：执行 SHA-256 哈希计算 ====================
+            // digest() 方法对输入字节数组进行哈希计算
+            // 输出固定 32 字节（256 位）的哈希值数组
+            // 例如："hello" 的 SHA-256 哈希值为 32 字节数组
+            byte[] hash = messageDigest.digest(inputBytes);
+
+            // ==================== 步骤 4：将字节数组编码为十六进制字符串 ====================
+            // 使用 CommonHexUtil.encodeHexString() 方法将 32 字节转换为 64 个十六进制字符
+            // 每个字节转换为 2 个十六进制字符（0-9, a-f）
+            // 例如：字节 [-14, 47, 30, ...] -> "2cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824"
+            String encodeStr = CommonHexUtil.encodeHexString(hash);
+
+            return encodeStr;
+        }catch (Exception var4){
+            // ==================== 异常处理 ====================
+            // 如果发生异常（如算法不支持、编码错误等），返回空字符串
+            // 常见异常：
+            // - NoSuchAlgorithmException：SHA-256 算法不可用（理论上不会发生，因为 Java 标准库支持）
+            // - 其他运行时异常
+            return "";
+        }
     }
 }

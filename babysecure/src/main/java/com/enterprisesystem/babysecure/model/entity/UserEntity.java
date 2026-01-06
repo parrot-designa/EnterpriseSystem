@@ -29,7 +29,7 @@ public class UserEntity {
      * 数据库字段：id INT(11) NOT NULL COMMENT '主键 id'
      * 注意：此表未使用 AUTO_INCREMENT，需手动生成ID
      */
-    private Integer id;
+    private int id;
 
     // ==================== 基础信息 ====================
 

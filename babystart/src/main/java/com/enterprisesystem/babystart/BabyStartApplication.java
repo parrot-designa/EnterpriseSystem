@@ -31,6 +31,6 @@ public class BabyStartApplication {
 //        System.out.println("===========================================");
 //        System.out.println("项目编译成功! ");
 //        System.out.println("===========================================");
-        CommonEnvUtil.getPropFromEnv("");
+//        CommonEnvUtil.printAllEnv();
     }
 }

@@ -28,6 +28,10 @@ public class APIResult<T> {
      * 是否成功
      */
     private boolean success;
+    /**
+     * 接口耗时（ms）
+     */
+    private double elapsed;
 
     /**
      * 单个参数构造器

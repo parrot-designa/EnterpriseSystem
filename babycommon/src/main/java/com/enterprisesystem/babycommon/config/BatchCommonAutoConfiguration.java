@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class BatchCommonAutoConfiguration {
     @Bean
-    public ApplicationContextProvider applicationContextProvider(ApplicationContext context){
+    public ApplicationContextProvider applicationContextProvider(){
         return new ApplicationContextProvider();
     }
 }

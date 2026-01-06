@@ -1,10 +1,14 @@
 package com.enterprisesystem.babycommon.aspect;
 
 import com.enterprisesystem.babycommon.annotation.ApiExceptionHandler;
+import com.enterprisesystem.babycommon.entity.APIResult;
+import com.enterprisesystem.babycommon.exception.SystemRuntimeException;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.Signature;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
 
 /**
@@ -29,6 +33,19 @@ public class ApiExceptionAspect {
     @Pointcut("@annotation(com.enterprisesystem.babycommon.annotation.ApiExceptionHandler)")
     public void apiPointcut(){}
 
+    private boolean support(ProceedingJoinPoint pjp){
+        Class<?> returnType = getReturnType(pjp);
+        return returnType != null && APIResult.class.isAssignableFrom(returnType);
+    }
+
+    private Class<?> getReturnType(ProceedingJoinPoint pjp){
+        Signature signature = pjp.getSignature();
+        if(signature instanceof MethodSignature){
+            return ((MethodSignature)signature).getReturnType();
+        }
+        return null;
+    }
+
     /**
      * 环绕通知：拦截 API 方法
      *
@@ -36,29 +53,29 @@ public class ApiExceptionAspect {
      * @return 目标方法的返回值
      * @throws Throwable 可抛出异常
      */
-    @Around(value = "apiPointcut()")
-    public Object handleException(ProceedingJoinPoint joinPoint) throws Throwable {
-        // ✅ 获取目标方法信息
-        String methodName = joinPoint.getSignature().getName();
-        String className = joinPoint.getTarget().getClass().getSimpleName();
-
+    @Around(value = "apiPointcut() && @annotation(annon)")
+    public Object handleException(ProceedingJoinPoint joinPoint,ApiExceptionHandler annon) throws Throwable {
         System.out.println("✅ 成功进入切面方法！");
-        System.out.println("   目标类：" + className);
-        System.out.println("   目标方法：" + methodName);
-
-        try {
-            // ✅ 执行目标方法（必须调用，否则目标方法不会执行）
-            Object result = joinPoint.proceed();
-
-            System.out.println("   方法执行成功，返回值：" + result);
-
-            return result;
-
-        } catch (Exception e) {
-            System.err.println("   方法执行异常：" + e.getMessage());
-
-            // 可以在这里记录日志、发送告警等
-            throw e;
+        // 该切面仅支持 v1-v3的接口
+        if(!support(joinPoint)){
+            return joinPoint.proceed();
         }
+
+        APIResult apiResult = new APIResult();
+        long start = 0;
+        try {
+            start = System.nanoTime();
+            apiResult = (APIResult)joinPoint.proceed();
+            double elapsed = (System.nanoTime() - start) / 1e6;
+            apiResult.setApiId(annon.apiId());
+            apiResult.setElapsed(elapsed);
+        } catch(SystemRuntimeException e) {
+            double elapsed = (System.nanoTime() - start) / 1e6;// 计算调用耗时
+            apiResult.setElapsed(elapsed);
+            apiResult.setErrorCode(e.getErrorCode());
+            apiResult.setApiId(annon.apiId());
+            apiResult.setErrorInfo(e.getOrignMessage());
+        }
+        return apiResult;
     }
 }

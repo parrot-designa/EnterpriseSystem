@@ -1,17 +1,17 @@
 package com.enterprisesystem.babysecure.service.impl;
 
+import com.enterprisesystem.babycommon.helpers.SequenceProducerHelper;
 import com.enterprisesystem.babysecure.mapper.UserMapper;
 import com.enterprisesystem.babysecure.model.dto.UserDto;
 import com.enterprisesystem.babysecure.model.entity.UserEntity;
 import com.enterprisesystem.babysecure.service.UserService;
 import com.enterprisesystem.babycommon.exception.SystemRuntimeException;
 import com.enterprisesystem.babycommon.utils.CommonObjectUtil;
-import com.enterprisesystem.babycommon.utils.SHAHelper;
+import com.enterprisesystem.babycommon.helpers.SHAHelper;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.security.MessageDigest;
 import java.util.Date;
 
 /**
@@ -30,11 +30,9 @@ public class UserServiceImpl implements UserService {
     @Resource
     private UserMapper userMapper;
 
-    /**
-     * ID 生成器计数器（简单自增 ID）
-     * 注意：生产环境建议使用雪花算法或分布式 ID 生成器
-     */
-    private static int idCounter = 1000;
+    @Resource
+    SequenceProducerHelper sequenceProducerHelper;
+
 
     /**
      * 添加用户
@@ -92,7 +90,7 @@ public class UserServiceImpl implements UserService {
         // 如果未提供密码，自动生成随机密码
         if (StringUtils.isBlank(userDto.getPassword())) {
             // 生成 12 位随机密码（包含大小写字母、数字、特殊字符）
-            plainPassword = SHAHelper.getStringRandom(12);
+            plainPassword = SHAHelper.getStringRandom(20);
             System.out.println("为用户【" + userDto.getAccount() + "】生成随机密码：" + plainPassword);
         } else {
             // 使用用户提供的密码
@@ -100,7 +98,7 @@ public class UserServiceImpl implements UserService {
         }
 
         // 加密密码（使用 SHA-256）
-        String encryptedPassword = encryptPassword(plainPassword);
+        String encryptedPassword = SHAHelper.convertByteToHexString(plainPassword);
 
         // ==================== 5. DTO 转 Entity ====================
 
@@ -157,49 +155,8 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    /**
-     * 生成用户 ID（简单自增方式）
-     *
-     * 注意：这种方式只适合单机应用，分布式环境请使用：
-     * - 雪花算法（Snowflake）
-     * - UUID
-     * - 数据库自增 ID
-     * - Redis INCR
-     *
-     * @return 新的 ID
-     */
-    private synchronized Integer generateId() {
-        return idCounter++;
-    }
-
-    /**
-     * 密码加密（SHA-256）
-     *
-     * 注意：SHA-256 是单向加密，无法解密
-     * 生产环境建议使用 BCrypt 或 Argon2 等更安全的加密算法
-     *
-     * @param password 明文密码
-     * @return 加密后的密码（十六进制字符串）
-     */
-    private String encryptPassword(String password) {
-        try {
-            MessageDigest md = MessageDigest.getInstance("SHA-256");
-            byte[] hash = md.digest(password.getBytes("UTF-8"));
-
-            // 将字节数组转换为十六进制字符串
-            StringBuilder hexString = new StringBuilder();
-            for (byte b : hash) {
-                String hex = Integer.toHexString(0xff & b);
-                if (hex.length() == 1) {
-                    hexString.append('0');
-                }
-                hexString.append(hex);
-            }
-
-            return hexString.toString();
-        } catch (Exception e) {
-            throw new SystemRuntimeException(111,"密码加密失败");
-        }
+    private Integer generateId() {
+        return (int) sequenceProducerHelper.getUniqueSequence();
     }
 
     // ==================== 工具方法 ====================

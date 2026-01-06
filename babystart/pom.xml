@@ -12,12 +12,6 @@
     <packaging>jar</packaging>
 
     <dependencies>
-        <!-- BabySecure API dependencies -->
-        <dependency>
-            <groupId>com.enterprisesystem</groupId>
-            <artifactId>babysecure-api</artifactId>
-            <version>1.0.0</version>
-        </dependency>
 
         <!-- BabySecure implementation -->
         <dependency>
