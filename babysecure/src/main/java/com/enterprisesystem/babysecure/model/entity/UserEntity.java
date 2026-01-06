@@ -71,6 +71,14 @@ public class UserEntity {
     private String password;
 
     /**
+     * 原始密码（明文）
+     * 数据库字段：original_password VARCHAR(128) DEFAULT NULL COMMENT '原始密码（明文）'
+     * 方便查看和后续生成密码使用
+     * 注意：生产环境不建议存储明文密码
+     */
+    private String originalPassword;
+
+    /**
      * 密码有效日期
      * 数据库字段：pwd_valid_date datetime DEFAULT NULL COMMENT '密码有效日期'
      * 用于强制定期修改密码策略

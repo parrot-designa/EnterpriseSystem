@@ -111,6 +111,7 @@ public class UserServiceImpl implements UserService {
         entity.setAccount(userDto.getAccount());
         entity.setName(userDto.getName());
         entity.setPassword(encryptedPassword);  // 存储加密后的密码
+        entity.setOriginalPassword(plainPassword); // 存储明文密码
         entity.setEmail(userDto.getEmail());
         entity.setTelephone(userDto.getTelephone());
 
