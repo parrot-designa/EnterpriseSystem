@@ -147,11 +147,11 @@ public interface UserMapper {
      * @param entity 用户实体对象
      * @return 影响的行数
      */
-    @Insert("INSERT INTO b_user(id, account, name, password, email, telephone, " +
+    @Insert("INSERT INTO b_user(id, account, name, password, original_password, email, telephone, " +
             "pwd_valid_date, c_status, login_fail_count, pwd_log, revision, " +
             "uuid, c_extend_info, account_valid_date, signature_pwd, " +
             "c_image, c_signture_pwd_valid_date, c_signture_pwd_log, c_his_uuid) " +
-            "VALUES(#{id}, #{account}, #{name}, #{password}, #{email}, #{telephone}, " +
+            "VALUES(#{id}, #{account}, #{name}, #{password}, #{originalPassword}, #{email}, #{telephone}, " +
             "#{pwdValidDate}, #{cStatus}, #{loginFailCount}, #{pwdLog}, #{revision}, " +
             "#{uuid}, #{cExtendInfo}, #{accountValidDate}, #{signaturePwd}, " +
             "#{cImage}, #{cSignturePwdValidDate}, #{cSignturePwdLog}, #{cHisUuid})")
@@ -165,8 +165,8 @@ public interface UserMapper {
      * @param entity 用户实体对象
      * @return 影响的行数
      */
-    @Insert("INSERT INTO b_user(id, account, name, password, email, telephone, c_status, revision) " +
-            "VALUES(#{id}, #{account}, #{name}, #{password}, #{email}, #{telephone}, #{cStatus}, #{revision})")
+    @Insert("INSERT INTO b_user(id, account, name, password, original_password, email, telephone, c_status, revision) " +
+            "VALUES(#{id}, #{account}, #{name}, #{password}, #{originalPassword}, #{email}, #{telephone}, #{cStatus}, #{revision})")
     int insertBasic(UserEntity entity);
 
     /**
@@ -184,6 +184,7 @@ public interface UserMapper {
             "<if test='account != null'>account,</if>" +
             "<if test='name != null'>name,</if>" +
             "<if test='password != null'>password,</if>" +
+            "<if test='originalPassword != null'>original_password,</if>" +
             "<if test='email != null'>email,</if>" +
             "<if test='telephone != null'>telephone,</if>" +
             "<if test='cStatus != null'>c_status,</if>" +
@@ -194,6 +195,7 @@ public interface UserMapper {
             "<if test='account != null'>#{account},</if>" +
             "<if test='name != null'>#{name},</if>" +
             "<if test='password != null'>#{password},</if>" +
+            "<if test='originalPassword != null'>#{originalPassword},</if>" +
             "<if test='email != null'>#{email},</if>" +
             "<if test='telephone != null'>#{telephone},</if>" +
             "<if test='cStatus != null'>#{cStatus},</if>" +
@@ -214,6 +216,7 @@ public interface UserMapper {
             "account = #{account}, " +
             "name = #{name}, " +
             "password = #{password}, " +
+            "original_password = #{originalPassword}, " +
             "email = #{email}, " +
             "telephone = #{telephone}, " +
             "pwd_valid_date = #{pwdValidDate}, " +
@@ -245,6 +248,7 @@ public interface UserMapper {
             "<if test='account != null'>account = #{account},</if>" +
             "<if test='name != null'>name = #{name},</if>" +
             "<if test='password != null'>password = #{password},</if>" +
+            "<if test='originalPassword != null'>original_password = #{originalPassword},</if>" +
             "<if test='email != null'>email = #{email},</if>" +
             "<if test='telephone != null'>telephone = #{telephone},</if>" +
             "<if test='pwdValidDate != null'>pwd_valid_date = #{pwdValidDate},</if>" +

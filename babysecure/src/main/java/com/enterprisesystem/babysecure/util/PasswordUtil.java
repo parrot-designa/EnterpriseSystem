@@ -12,11 +12,11 @@ public class PasswordUtil {
     public static String decrypt(String encryptedPassword){
         String pwd;
         // 调用 base64
-        String decryptString = new String(Base64.getDecoder().decode((encryptedPassword)));
+        String decryptString = new String(Base64.getDecoder().decode(encryptedPassword));
 
         if(decryptString.startsWith(PREFIX) && decryptString.endsWith(SUFFIX)){
-            int startIndex = 3;
-            int endIndex = decryptString.length() - 4;
+            int startIndex = 4;
+            int endIndex = decryptString.length() - 2;
             pwd = decryptString.substring(startIndex, endIndex);
         }
         else {

@@ -16,6 +16,3 @@ spring:
   profiles:
     active: dev
 
-## 自定义配置
-#babysecure:
-#  hostaddr: ${HOSTADDR:localhost:8848}

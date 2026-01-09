@@ -1,0 +1,55 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: baby-gateway
+  cloud:
+    gateway:
+      # 路由配置
+      routes:
+        # 用户管理服务路由（转发到本地 babystart 服务）
+        - id: baby-secure-route
+          # 直接指向本地 babystart 服务的地址
+          uri: http://localhost:8090
+          predicates:
+            # 匹配 /api/secure/ 开头的请求
+            - Path=/api/secure/**
+          filters:
+            # 路径重写：/api/secure/user → /api/user
+            - RewritePath=/api/secure/(?<segment>.*), /api/${segment}
+
+#        # 商家管理服务路由（转发到本地 babystart 服务）
+#        - id: baby-main-route
+#          uri: http://localhost:8090
+#          predicates:
+#            - Path=/api/main/**
+#          filters:
+#            # 路径重写：/api/main/seller → /api/seller
+#            - RewritePath=/api/main/(?<segment>.*), /api/${segment}
+
+      # 全局配置
+      default-filters:
+        # 启用重试
+        - Retry
+
+# 日志配置
+logging:
+  level:
+    root: INFO
+    com.enterprisesystem.babygateway: DEBUG
+    org.springframework.cloud.gateway: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n"
+
+# 管理端点配置
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,gateway
+  endpoint:
+    health:
+      show-details: always
+    gateway:
+      enabled: true

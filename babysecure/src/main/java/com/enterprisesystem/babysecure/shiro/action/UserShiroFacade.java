@@ -19,6 +19,7 @@ public class UserShiroFacade {
 
     public Map<String,Object> doLogin(LoginRequest loginRequest) {
         // 前端传过来的是加密的 需解密
+        // 前后端约定账号密码必填 使用 window.btoa进行加密
         String password = PasswordUtil.decrypt(loginRequest.getPassword());
         loginRequest.setPassword(password);
 

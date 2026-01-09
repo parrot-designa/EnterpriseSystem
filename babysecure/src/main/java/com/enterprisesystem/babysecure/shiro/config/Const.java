@@ -1,7 +1,7 @@
 package com.enterprisesystem.babysecure.shiro.config;
 
 public class Const {
-    public static final String LOCK_CHECK_BUSINESS = "Session";
+    public static final String LOCK_CHECK_BUSINESS = "User";
 
     public static final String THE_COMMA = ",";
 

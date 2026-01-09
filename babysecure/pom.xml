@@ -6,35 +6,25 @@
 
     <parent>
         <groupId>com.enterprisesystem</groupId>
-        <artifactId>enterprise-system</artifactId>
+        <artifactId>babyparent</artifactId>
         <version>1.0.0</version>
     </parent>
 
     <artifactId>babysecure</artifactId>
     <name>babysecure</name>
+    <version>1.0.0</version>
     <description>User Management Implementation Module</description>
 
     <dependencies>
-
-        <dependency>
-            <groupId>org.mybatis.spring.boot</groupId>
-            <artifactId>mybatis-spring-boot-starter</artifactId>
-        </dependency>
-
         <dependency>
             <groupId>com.enterprisesystem</groupId>
             <artifactId>babycommon</artifactId>
-            <version>1.0.0</version>
         </dependency>
+
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
         </dependency>
 
         <!-- Nacos Discovery -->
@@ -55,26 +45,22 @@
             <artifactId>spring-cloud-starter-bootstrap</artifactId>
         </dependency>
 
-        <!-- Apache Shiro Spring Boot Starter -->
-        <dependency>
-            <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-spring-boot-starter</artifactId>
-        </dependency>
+        <!-- ==================== JWT 相关依赖 ==================== -->
 
-        <!-- JWT API -->
+        <!-- JWT API (接口定义) -->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-api</artifactId>
         </dependency>
 
-        <!-- JWT Implementation -->
+        <!-- JWT 实现 (运行时需要) -->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-impl</artifactId>
             <scope>runtime</scope>
         </dependency>
 
-        <!-- JWT Jackson -->
+        <!-- JWT JSON 序列化 (使用 Jackson) -->
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-jackson</artifactId>
@@ -99,6 +85,37 @@
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-pool2</artifactId>
+        </dependency>
+
+        <!-- Apache Shiro Spring -->
+        <dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-spring</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.mybatis.spring.boot</groupId>
+            <artifactId>mybatis-spring-boot-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
         </dependency>
     </dependencies>
 </project>
